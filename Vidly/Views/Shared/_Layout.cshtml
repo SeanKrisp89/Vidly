@@ -9,7 +9,7 @@
 
 </head>
 <body>
-    @Html.Partial("_NavBar")
+    @Html.Partial("_NavBar") @*Html.Partial() also accepts models and viewModels as second arguments (...., Model.Movie), (...., ViewModel.RandomMovieViewModel), etc... Also, if you were to add a model to the shared layout, if you do not specify another model in the partial, the main model will automatically be passed to the partial (so _Layout to _NavBar)*@
     <div class="container body-content">
         @RenderBody()
         <hr />

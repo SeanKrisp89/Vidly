@@ -12,7 +12,32 @@ namespace Vidly.Controllers
     {
         //Parameters sources can be passed in the url (/movies/edit/1), in the query string (/movies/edit?id=1), or in the form data (id=1)
 
-        // GET: Movies
+        // GET: /movies
+        public ActionResult Index()
+		{
+            var movies = new List<Movie>
+            {
+               new Movie{ Name = "Troy", Id = 1},
+               new Movie{ Name = "Star Wars V", Id = 2}
+            };
+
+            return View(movies);
+		}
+
+        public ActionResult Details(int id)
+		{
+            var movies = new List<Movie>
+            {
+               new Movie{ Name = "Troy", Id = 1},
+               new Movie{ Name = "Star Wars V", Id = 2}
+            };
+
+            var movie = movies.Find(m => m.Id == id);
+
+            return View(movie);
+        }
+
+        // GET: Movies/Random
         public ActionResult Random()
         {
             var movie = new Movie()
@@ -43,19 +68,20 @@ namespace Vidly.Controllers
         }
 
         //movies
-        public ActionResult Index(int? pageIndex, string sortBy)
-        {
-            if (!pageIndex.HasValue)
-            {
-                pageIndex = 1;
-            }
-            if (String.IsNullOrWhiteSpace(sortBy))
-            {
-                sortBy = "Name";
-            }
+        //public ActionResult Index(int? pageIndex, string sortBy) original index method 
+        //{
+        //    if (!pageIndex.HasValue)
+        //    {
+        //        pageIndex = 1;
+        //    }
+        //    if (String.IsNullOrWhiteSpace(sortBy))
+        //    {
+        //        sortBy = "Name";
+        //    }
 
-            return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
-        }
+        //    return Content(String.Format("pageIndex={0}&sortBy={1}", pageIndex, sortBy));
+        //}
+
         [Route("movies/released/{year}/{month:regex(\\d{2}):range(1,12)}")] //Google ASP.NET MVC Attribute Route COntraints
         public ActionResult ByReleaseDate(int year, int month)
 		{
