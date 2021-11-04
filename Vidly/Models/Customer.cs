@@ -19,6 +19,9 @@ namespace Vidly.Models
 		//Now we need to associate our customer class with MembershipType
 		public MembershipType MembershipType { get; set; } //This is what we call a navigation property, because it allows us to navigate from one type to another.
 														   //These nav props are useful when you want to load an object and its related objects together from the Db (I believe this is eager loading? - Yep.)
+		
+		//So this data annotation will alter the label on our forms, but the problem with this approach is every time we do this, or if we want to change the label, we have to recompile our code. Lesson 39.
+		[Display(Name = "Date of Birth")]
 		public DateTime? Birthdate { get; set; }
 	}
 }

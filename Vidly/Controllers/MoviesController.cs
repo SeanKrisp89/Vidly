@@ -57,6 +57,11 @@ namespace Vidly.Controllers
             return View(movie);
         }
 
+        public ActionResult New()
+		{
+            return View();
+		}
+
         // GET: Movies/Random
         public ActionResult Random()
         {
