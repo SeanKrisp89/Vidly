@@ -1,0 +1,27 @@
+﻿@model Vidly.Models.Customer
+@{
+	ViewBag.Title = "New";
+	Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>New Customer</h2>
+@*The Html BeginForm helper method only creates the opening <form> tag. How do we create the closing tag?
+	Well, this method returns a disposable object, so we need to wrap it in a using statement -LESSON 38
+	In the disposing method, it will render the closing </form> tag*@
+@using (Html.BeginForm("Create", "Customers"))
+{
+	<div class="form-group">
+		@Html.LabelFor(c => c.Name) @*This is how we map to our domain properties*@
+		@Html.TextBoxFor(c => c.Name, new { @class = "form-control" })
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(c => c.Birthdate) @*This is how we map to our domain properties*@
+		@Html.TextBoxFor(c => c.Birthdate, new { @class = "form-control" })
+	</div>
+	<div class="checkbox">
+		<label>
+			@Html.CheckBoxFor(c => c.IsSubscribedToNewsLetter) Subscribed to Newsletter?
+		</label>
+	</div>
+}
+
