@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 using System.Data.Entity;
+using Vidly.ViewModels;
 
 namespace Vidly.Controllers
 {
@@ -27,7 +28,15 @@ namespace Vidly.Controllers
 
 		public ActionResult New()
 		{
-			return View();
+			//First we need to get a list of MembershipTypes from the Db. THISREQUIRED THAT WE ADD A DBSET OF TYPE MEMBERSHIPTYPES TO THE IDENTITYMODEL/APPLICATION DBCONTEXT - LESSON 40
+			var membershipTypes = _context.MembershipTypes.ToList();
+
+			var viewModel = new NewCustomerViewModel
+			{
+				MembershipTypes = membershipTypes
+			};
+
+			return View(viewModel);
 		}
 
 		// GET: Customers
