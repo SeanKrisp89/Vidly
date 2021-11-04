@@ -215,6 +215,18 @@
     <Compile Include="Migrations\202111040155471_AddedGenreClass.Designer.cs">
       <DependentUpon>202111040155471_AddedGenreClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111040201142_AddingMovieDbContext.cs" />
+    <Compile Include="Migrations\202111040201142_AddingMovieDbContext.Designer.cs">
+      <DependentUpon>202111040201142_AddingMovieDbContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111040206499_AddedGenreAndUpdatedMovieClass.cs" />
+    <Compile Include="Migrations\202111040206499_AddedGenreAndUpdatedMovieClass.Designer.cs">
+      <DependentUpon>202111040206499_AddedGenreAndUpdatedMovieClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111040208225_SeedDbWithGenreNames.cs" />
+    <Compile Include="Migrations\202111040208225_SeedDbWithGenreNames.Designer.cs">
+      <DependentUpon>202111040208225_SeedDbWithGenreNames.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -336,6 +348,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111040155471_AddedGenreClass.resx">
       <DependentUpon>202111040155471_AddedGenreClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111040201142_AddingMovieDbContext.resx">
+      <DependentUpon>202111040201142_AddingMovieDbContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111040206499_AddedGenreAndUpdatedMovieClass.resx">
+      <DependentUpon>202111040206499_AddedGenreAndUpdatedMovieClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111040208225_SeedDbWithGenreNames.resx">
+      <DependentUpon>202111040208225_SeedDbWithGenreNames.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
