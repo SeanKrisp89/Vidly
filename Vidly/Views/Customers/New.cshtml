@@ -1,4 +1,4 @@
-﻿@model Vidly.ViewModels.NewCustomerViewModel
+﻿@model Vidly.ViewModels.CustomerFormViewModel
 @*We changed from model.customer to ViewModel.NewCustomerViewModel in order to pass in MembershipTypes and Customer types. The NewCustomerViewModel contains a Customer type...
 	When we updated, we got errors on all our properties. This is because the model used to only be customer, therefore we had direct access to the properties.
 	So we had things like c => c.Name, but now Customer type is the PROPERTY, so we have to get the PROPERTIES OF the properties like so: c => c.Customer.Name*@

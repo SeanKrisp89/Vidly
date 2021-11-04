@@ -31,7 +31,7 @@ namespace Vidly.Controllers
 			//First we need to get a list of MembershipTypes from the Db. THISREQUIRED THAT WE ADD A DBSET OF TYPE MEMBERSHIPTYPES TO THE IDENTITYMODEL/APPLICATION DBCONTEXT - LESSON 40
 			var membershipTypes = _context.MembershipTypes.ToList();
 
-			var viewModel = new NewCustomerViewModel
+			var viewModel = new CustomerFormViewModel
 			{
 				MembershipTypes = membershipTypes
 			};
@@ -91,6 +91,26 @@ namespace Vidly.Controllers
 			}
 
 			return View(customer);
+		}
+
+		public ActionResult Edit(int id)
+		{
+			//first we need to retrieve customer from Db
+			var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
+
+			if(customer == null)
+			{
+				return HttpNotFound();
+			}
+
+			//Since the model behind the New.cshtml page is NewCustomerViewModel, we need to pass that in.
+			var viewModel = new CustomerFormViewModel
+			{
+				Customer = customer,
+				MembershipTypes = _context.MembershipTypes.ToList() //We also need to initialize MembershipTypes prop of NewCustomerViewModel object. I believe this because we need to popualate the dropdown with membershiptype options
+			};
+
+			return View("New", viewModel);
 		}
     }
 }
