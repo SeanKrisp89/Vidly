@@ -203,9 +203,22 @@
     <Compile Include="Migrations\202111040126169_SeedDbWithMembershipTypeNames.Designer.cs">
       <DependentUpon>202111040126169_SeedDbWithMembershipTypeNames.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111040136191_AddBirthdateToCustomer.cs" />
+    <Compile Include="Migrations\202111040136191_AddBirthdateToCustomer.Designer.cs">
+      <DependentUpon>202111040136191_AddBirthdateToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111040140131_MakeBirthdateNullable.cs" />
+    <Compile Include="Migrations\202111040140131_MakeBirthdateNullable.Designer.cs">
+      <DependentUpon>202111040140131_MakeBirthdateNullable.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111040155471_AddedGenreClass.cs" />
+    <Compile Include="Migrations\202111040155471_AddedGenreClass.Designer.cs">
+      <DependentUpon>202111040155471_AddedGenreClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
+    <Compile Include="Models\Genre.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
     <Compile Include="Models\MembershipType.cs" />
@@ -314,6 +327,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111040126169_SeedDbWithMembershipTypeNames.resx">
       <DependentUpon>202111040126169_SeedDbWithMembershipTypeNames.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111040136191_AddBirthdateToCustomer.resx">
+      <DependentUpon>202111040136191_AddBirthdateToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111040140131_MakeBirthdateNullable.resx">
+      <DependentUpon>202111040140131_MakeBirthdateNullable.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111040155471_AddedGenreClass.resx">
+      <DependentUpon>202111040155471_AddedGenreClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
