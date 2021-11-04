@@ -5,34 +5,53 @@ using System.Web;
 using System.Web.Mvc;
 using Vidly.Models;
 using Vidly.ViewModels;
+using System.Data.Entity;
 
 namespace Vidly.Controllers
 {
     public class MoviesController : Controller
     {
-        //Parameters sources can be passed in the url (/movies/edit/1), in the query string (/movies/edit?id=1), or in the form data (id=1)
+        //Create _context property
+        private ApplicationDbContext _context;
 
-        // GET: /movies
-        public ActionResult Index()
+		//Initialize context prop
+		public MoviesController()
 		{
-            var movies = new List<Movie>
-            {
-               new Movie{ Name = "Troy", Id = 1},
-               new Movie{ Name = "Star Wars V", Id = 2}
-            };
+            _context = new ApplicationDbContext();
+		}
+
+		protected override void Dispose(bool disposing)
+		{
+            _context.Dispose();
+		}
+
+		//Parameters sources can be passed in the url (/movies/edit/1), in the query string (/movies/edit?id=1), or in the form data (id=1)
+
+		// GET: /movies
+		public ActionResult Index()
+		{
+            //var movies = new List<Movie> //our initial hardcoding of movies prior to Db
+            //{
+            //   new Movie{ Name = "Troy", Id = 1},
+            //   new Movie{ Name = "Star Wars V", Id = 2}
+            //};
+
+            var movies = _context.Movies.Include(m => m.Genre).ToList();
 
             return View(movies);
 		}
 
         public ActionResult Details(int id)
 		{
-            var movies = new List<Movie>
-            {
-               new Movie{ Name = "Troy", Id = 1},
-               new Movie{ Name = "Star Wars V", Id = 2}
-            };
+            //var movies = new List<Movie> //hardcoded from prior to Db
+            //{
+            //   new Movie{ Name = "Troy", Id = 1},
+            //   new Movie{ Name = "Star Wars V", Id = 2}
+            //};
 
-            var movie = movies.Find(m => m.Id == id);
+            //var movie = movies.Find(m => m.Id == id);
+
+            var movie = _context.Movies.Include(m => m.Genre).SingleOrDefault(m => m.Id == id);
 
             return View(movie);
         }
