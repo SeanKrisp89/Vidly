@@ -39,6 +39,12 @@ namespace Vidly.Controllers
 			return View(viewModel);
 		}
 
+		[HttpPost]
+		public ActionResult Create(NewCustomerViewModel viewModel) //Because the model behind our view is of type NewCustomerViewModel, we can use this type here and MVC framework will automatically map request data to this object. This is what we call MODEL BINDING. So MVC framework BINDS the viewModel parameter to the request data. - LESSON 41
+		{
+			return View();
+		}
+
 		// GET: Customers
 		public ActionResult Index()
         {
