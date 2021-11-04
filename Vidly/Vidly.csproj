@@ -239,6 +239,10 @@
     <Compile Include="Migrations\202111040248594_DatesAndStockNumbersForMovies.Designer.cs">
       <DependentUpon>202111040248594_DatesAndStockNumbersForMovies.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111041355250_AddedMembershipTypeIdPropToCustomer.cs" />
+    <Compile Include="Migrations\202111041355250_AddedMembershipTypeIdPropToCustomer.Designer.cs">
+      <DependentUpon>202111041355250_AddedMembershipTypeIdPropToCustomer.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -381,6 +385,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111040248594_DatesAndStockNumbersForMovies.resx">
       <DependentUpon>202111040248594_DatesAndStockNumbersForMovies.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111041355250_AddedMembershipTypeIdPropToCustomer.resx">
+      <DependentUpon>202111041355250_AddedMembershipTypeIdPropToCustomer.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
