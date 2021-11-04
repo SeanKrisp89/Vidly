@@ -40,9 +40,14 @@ namespace Vidly.Controllers
 		}
 
 		[HttpPost]
-		public ActionResult Create(NewCustomerViewModel viewModel) //Because the model behind our view is of type NewCustomerViewModel, we can use this type here and MVC framework will automatically map request data to this object. This is what we call MODEL BINDING. So MVC framework BINDS the viewModel parameter to the request data. - LESSON 41
+		public ActionResult Create(Customer customer) //Because the model behind our view is of type NewCustomerViewModel, we can use this type here and MVC framework will automatically map request data to this object (we later updated to type of Customer). This is what we call MODEL BINDING. So MVC framework BINDS the viewModel parameter to the request data. - LESSON 41
 		{
-			return View();
+			//We first need to add the object to our DbContext. Keep in mind that when you add to context, it's not in the Db yet, just in memory.
+			_context.Customers.Add(customer);
+			//We then need to PERSIST these changes:
+			_context.SaveChanges();
+			//We then want to return the user to the list of customers (i.e. the index)
+			return RedirectToAction("Index", "Customers");
 		}
 
 		// GET: Customers
