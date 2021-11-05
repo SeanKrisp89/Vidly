@@ -14,23 +14,23 @@
 @using (Html.BeginForm("Create", "Customers"))
 {
 	<div class="form-group">
-		@Html.LabelFor(c => c.Customer.Name) 
+		@Html.LabelFor(c => c.Customer.Name)
 		@Html.TextBoxFor(c => c.Customer.Name, new { @class = "form-control" })
 	</div>
 	<div class="form-group">
 		@*With the "Html.LabelFor" we get the textbox focus even by just clicking on the label. This is because the method include "for='Birthdate'" which is the field Id as well (inspect it!)*@
 		@*We can also achieve this with a normal label markup, but we must manually include the for ONLY IF WE WANT THE FOCUS BEHAVIOR WHEN CLICKINGON THE LABEL... LESSON 39*@
 		<label for="Birthdate">Date of Birth</label>
-		@Html.TextBoxFor(c => c.Customer.Birthdate, new { @class = "form-control" })
+		@Html.TextBoxFor(c => c.Customer.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control" })
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(c => c.Customer.MembershipTypeId)
+		@Html.DropDownListFor(c => c.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
 	</div>
 	<div class="checkbox">
 		<label>
 			@Html.CheckBoxFor(c => c.Customer.IsSubscribedToNewsLetter) Subscribed to Newsletter?
 		</label>
-	</div>
-	<div class="form-group">
-		@Html.LabelFor(c => c.Customer.MembershipTypeId)
-		@Html.DropDownListFor(c => c.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type",new { @class = "form-control" })
 	</div>
 	<button type="submit" class="btn btn-primary">Save</button>
 }

@@ -36,7 +36,7 @@ namespace Vidly.Controllers
 				MembershipTypes = membershipTypes
 			};
 
-			return View(viewModel);
+			return View("CustomerForm", viewModel);
 		}
 
 		[HttpPost]
@@ -110,7 +110,7 @@ namespace Vidly.Controllers
 				MembershipTypes = _context.MembershipTypes.ToList() //We also need to initialize MembershipTypes prop of NewCustomerViewModel object. I believe this because we need to popualate the dropdown with membershiptype options
 			};
 
-			return View("New", viewModel);
+			return View("CustomerForm", viewModel);
 		}
     }
 }
