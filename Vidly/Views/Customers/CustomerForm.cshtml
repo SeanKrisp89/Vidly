@@ -11,7 +11,7 @@
 @*The Html BeginForm helper method only creates the opening <form> tag. How do we create the closing tag?
 	Well, this method returns a disposable object, so we need to wrap it in a using statement -LESSON 38
 	In the disposing method, it will render the closing </form> tag*@
-@using (Html.BeginForm("Create", "Customers"))
+@using (Html.BeginForm("Save", "Customers"))
 {
 	<div class="form-group">
 		@Html.LabelFor(c => c.Customer.Name)
@@ -32,6 +32,7 @@
 			@Html.CheckBoxFor(c => c.Customer.IsSubscribedToNewsLetter) Subscribed to Newsletter?
 		</label>
 	</div>
+	@Html.HiddenFor(c => c.Customer.Id)
 	<button type="submit" class="btn btn-primary">Save</button>
 }
 

@@ -39,11 +39,24 @@ namespace Vidly.Controllers
 			return View("CustomerForm", viewModel);
 		}
 
-		[HttpPost]
-		public ActionResult Create(Customer customer) //Because the model behind our view is of type NewCustomerViewModel, we can use this type here and MVC framework will automatically map request data to this object (we later updated to type of Customer). This is what we call MODEL BINDING. So MVC framework BINDS the viewModel parameter to the request data. - LESSON 41
+		[HttpPost] //The SAVE method used to be "Create", but we wanted to use the same action for new customers (Create) and editing existing customers (Update)
+		public ActionResult Save(Customer customer) //Because the model behind our view is of type NewCustomerViewModel, we can use this type here and MVC framework will automatically map request data to this object (we later updated to type of Customer). This is what we call MODEL BINDING. So MVC framework BINDS the viewModel parameter to the request data. - LESSON 41
 		{
-			//We first need to add the object to our DbContext. Keep in mind that when you add to context, it's not in the Db yet, just in memory.
-			_context.Customers.Add(customer);
+			if(customer.Id == 0)
+			{
+				//We first need to add the object to our DbContext. Keep in mind that when you add to context, it's not in the Db yet, just in memory.
+				_context.Customers.Add(customer);
+			}
+			else//To update an entity, we need to get it from the Db first.. - UPDATING DATA LESSON 44
+			{
+				var customerInDb = _context.Customers.Single(c => c.Id == customer.Id); //We're using "Single()" method here as opposed to "SingleOrDefault()" so that if the given customer is not found it DOES throw an exception
+
+				//This is a very manual way of updating our Db objects. We could use Automapper... (L44)
+				customerInDb.Name = customer.Name;
+				customerInDb.Birthdate = customer.Birthdate;
+				customerInDb.MembershipTypeId = customer.MembershipTypeId;
+				customerInDb.IsSubscribedToNewsLetter = customer.IsSubscribedToNewsLetter;
+			}
 			//We then need to PERSIST these changes:
 			_context.SaveChanges();
 			//We then want to return the user to the list of customers (i.e. the index)
