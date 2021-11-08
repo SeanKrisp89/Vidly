@@ -59,7 +59,12 @@ namespace Vidly.Controllers
 
         public ActionResult New()
 		{
-            return View("MovieForm");
+            var genres = new MovieFormViewModel //We need to pass in the MovieFormViewModel because we're loading in two types (Movie and Genre) which means at some point we'll need to eager load from Db...
+            {
+                Genres = _context.Genres.ToList()
+            };
+
+            return View("MovieForm", genres);
 		}
 
         // GET: Movies/Random

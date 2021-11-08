@@ -247,6 +247,14 @@
     <Compile Include="Migrations\202111081421478_AddedMovieClassAnnotations.Designer.cs">
       <DependentUpon>202111081421478_AddedMovieClassAnnotations.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111081437543_AddedGenreToAppDbContext.cs" />
+    <Compile Include="Migrations\202111081437543_AddedGenreToAppDbContext.Designer.cs">
+      <DependentUpon>202111081437543_AddedGenreToAppDbContext.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111081444157_RenamedGenrePropInMoveFormVM.cs" />
+    <Compile Include="Migrations\202111081444157_RenamedGenrePropInMoveFormVM.Designer.cs">
+      <DependentUpon>202111081444157_RenamedGenrePropInMoveFormVM.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -258,6 +266,7 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
     <Compile Include="ViewModels\CustomerFormViewModel.cs" />
+    <Compile Include="ViewModels\MovieFormViewModel.cs" />
     <Compile Include="ViewModels\RandomMovieViewModel.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -395,6 +404,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111081421478_AddedMovieClassAnnotations.resx">
       <DependentUpon>202111081421478_AddedMovieClassAnnotations.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111081437543_AddedGenreToAppDbContext.resx">
+      <DependentUpon>202111081437543_AddedGenreToAppDbContext.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111081444157_RenamedGenrePropInMoveFormVM.resx">
+      <DependentUpon>202111081444157_RenamedGenrePropInMoveFormVM.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

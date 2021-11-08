@@ -28,7 +28,7 @@ namespace Vidly.Controllers
 
 		public ActionResult New()
 		{
-			//First we need to get a list of MembershipTypes from the Db. THISREQUIRED THAT WE ADD A DBSET OF TYPE MEMBERSHIPTYPES TO THE IDENTITYMODEL/APPLICATION DBCONTEXT - LESSON 40
+			//First we need to get a list of MembershipTypes from the Db. THIS REQUIRED THAT WE ADD A DBSET OF TYPE MEMBERSHIPTYPES TO THE IDENTITYMODEL/APPLICATION DBCONTEXT - LESSON 40
 			var membershipTypes = _context.MembershipTypes.ToList();
 
 			var viewModel = new CustomerFormViewModel

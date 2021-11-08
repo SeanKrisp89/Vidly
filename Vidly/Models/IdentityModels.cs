@@ -23,6 +23,8 @@ namespace Vidly.Models
 		public DbSet<Customer> Customers { get; set; } //We added this. Our DbContext is now aware of our customer class - lesson 25
         public DbSet<Movie> Movies { get; set; } //We added this as part of Exercise 3 (lesson 35)
 		public DbSet<MembershipType> MembershipTypes { get; set; }
+		public DbSet<Genre> Genres { get; set; }
+
 		public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
