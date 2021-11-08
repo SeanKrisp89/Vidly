@@ -59,7 +59,7 @@ namespace Vidly.Controllers
 
         public ActionResult New()
 		{
-            return View();
+            return View("MovieForm");
 		}
 
         // GET: Movies/Random
