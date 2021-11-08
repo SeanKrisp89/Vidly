@@ -67,9 +67,29 @@ namespace Vidly.Controllers
             return View("MovieForm", genres);
 		}
 
+        [HttpPost]
         public ActionResult Save(Movie movie)
 		{
-            return RedirectToAction("Index");
+            //determine if new movie or existing movie
+            if(movie.Id == 0)
+			{
+                _context.Movies.Add(movie);
+			}
+			else
+			{
+                //grab movie from Db first
+                var movieInDb = _context.Movies.Single(m => m.Id == movie.Id);
+
+                //update movieInDb values to that of movie argument passed in
+                movieInDb.Name = movie.Name;
+                movieInDb.Genre = movie.Genre;
+                movieInDb.DateAdded = movie.DateAdded;
+                movieInDb.NumberInStock = movie.NumberInStock;
+			}
+
+            _context.SaveChanges();
+
+            return RedirectToAction("Index", "Movies");
 		}
 
         // GET: Movies/Random
