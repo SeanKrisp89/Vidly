@@ -67,6 +67,11 @@ namespace Vidly.Controllers
             return View("MovieForm", genres);
 		}
 
+        public ActionResult Save(Movie movie)
+		{
+            return RedirectToAction("Index");
+		}
+
         // GET: Movies/Random
         public ActionResult Random()
         {
