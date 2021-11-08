@@ -64,6 +64,8 @@ namespace Vidly.Controllers
                 Genres = _context.Genres.ToList()
             };
 
+            ViewBag.Title = "New Movie";
+
             return View("MovieForm", genres);
 		}
 
@@ -73,6 +75,7 @@ namespace Vidly.Controllers
             //determine if new movie or existing movie
             if(movie.Id == 0)
 			{
+                movie.DateAdded = DateTime.Now;
                 _context.Movies.Add(movie);
 			}
 			else
@@ -82,8 +85,8 @@ namespace Vidly.Controllers
 
                 //update movieInDb values to that of movie argument passed in
                 movieInDb.Name = movie.Name;
-                movieInDb.Genre = movie.Genre;
-                movieInDb.DateAdded = movie.DateAdded;
+                movieInDb.GenreId = movie.GenreId;
+                movieInDb.ReleaseDate = movie.ReleaseDate;
                 movieInDb.NumberInStock = movie.NumberInStock;
 			}
 
@@ -92,34 +95,25 @@ namespace Vidly.Controllers
             return RedirectToAction("Index", "Movies");
 		}
 
-        // GET: Movies/Random
-        public ActionResult Random()
-        {
-            var movie = new Movie()
-            {
-                Name = "Shrek!"
-            };
-
-            var customers = new List<Customer>
-            {
-                new Customer {Name = "Sean"},
-                new Customer {Name = "Megan"}
-            };
-
-            var viewModel = new RandomMovieViewModel()
-            {
-                Movie = movie,
-                Customers = customers
-            };
-
-            return View(viewModel);
-
-            //return RedirectToAction("Index", "Home", new { page = 1, sortBy = "Name" });
-        }
-
         public ActionResult Edit(int id)
         {
-            return Content("id=" + id);
+            //get movie from db
+            var movie = _context.Movies.SingleOrDefault(m => m.Id == id);
+
+            if(movie == null)
+			{
+                return HttpNotFound();
+			}
+
+            var viewModel = new MovieFormViewModel
+            {
+                Movie = movie, //Simple enough - need to set the movie prop in MovieFormViewModel to your movie object from Db
+                Genres = _context.Genres.ToList() //However here, we wanna grab all possible genre types/names for populating dropdown. Check out comment on LabelFor/DropDownFor in MovieForm.cshtml
+            };
+
+            ViewBag.Title = "Edit Movie";
+
+            return View("MovieForm", viewModel);
         }
 
         //movies

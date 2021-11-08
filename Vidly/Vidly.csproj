@@ -255,6 +255,10 @@
     <Compile Include="Migrations\202111081444157_RenamedGenrePropInMoveFormVM.Designer.cs">
       <DependentUpon>202111081444157_RenamedGenrePropInMoveFormVM.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111081939005_AddedGenreIdToMovieClass.cs" />
+    <Compile Include="Migrations\202111081939005_AddedGenreIdToMovieClass.Designer.cs">
+      <DependentUpon>202111081939005_AddedGenreIdToMovieClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -410,6 +414,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111081444157_RenamedGenrePropInMoveFormVM.resx">
       <DependentUpon>202111081444157_RenamedGenrePropInMoveFormVM.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111081939005_AddedGenreIdToMovieClass.resx">
+      <DependentUpon>202111081939005_AddedGenreIdToMovieClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

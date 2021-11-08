@@ -110,7 +110,6 @@ namespace Vidly.Controllers
 		{
 			//first we need to retrieve customer from Db
 			var customer = _context.Customers.SingleOrDefault(c => c.Id == id);
-
 			if(customer == null)
 			{
 				return HttpNotFound();
