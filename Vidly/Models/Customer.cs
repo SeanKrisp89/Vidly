@@ -9,8 +9,8 @@ namespace Vidly.Models
 	public class Customer
 	{
 		public int Id { get; set; }
-
-		[Required] //Overriding Conventions - lesson 28
+		//You can also override the default error message - see below
+		[Required(ErrorMessage = "Please enter the customer's name.")] //Overriding Conventions - lesson 28
 		[StringLength(255)]
 		public string Name { get; set; }
 
@@ -22,7 +22,9 @@ namespace Vidly.Models
 		[Display(Name = "Membership Type")]
 		public byte MembershipTypeId { get; set; }
 
-		//So this data annotation will alter the label on our forms, but the problem with this approach is every time we do this, or if we want to change the label, we have to recompile our code. Lesson 39.
+		//So these data annotation will alter the label on our forms, but the problem with this approach is every time we do this, or if we want to change the label, we have to recompile our code. Lesson 39.
+		
+		[Min18YearsIfAMember]
 		[Display(Name = "Date of Birth")]
 		public DateTime? Birthdate { get; set; }
 	}

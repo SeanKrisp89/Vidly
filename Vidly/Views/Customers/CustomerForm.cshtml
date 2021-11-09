@@ -23,6 +23,7 @@
 		@*We can also achieve this with a normal label markup, but we must manually include the for ONLY IF WE WANT THE FOCUS BEHAVIOR WHEN CLICKINGON THE LABEL... LESSON 39*@
 		<label for="Birthdate">Date of Birth</label>
 		@Html.TextBoxFor(c => c.Customer.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control" })
+		@Html.ValidationMessageFor(c => c.Customer.Birthdate)
 	</div>
 	<div class="form-group">
 		@Html.LabelFor(c => c.Customer.MembershipTypeId)
