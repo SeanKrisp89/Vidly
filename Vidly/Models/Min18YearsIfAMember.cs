@@ -17,7 +17,9 @@ namespace Vidly.Models
 			var customer = (Customer)validationContext.ObjectInstance;
 
 			//Now we can check the selected MembershipType. We added == 0 later because if the user does not enter a value for membership type, the default value for int data types is 0
-			if(customer.MembershipTypeId == 0 || customer.MembershipTypeId == 1)
+			//if(customer.MembershipTypeId == 0 || customer.MembershipTypeId == 1) - this is commented out due to lesson 54
+			if(customer.MembershipTypeId == MembershipType.Unknown ||
+			   customer.MembershipTypeId == MembershipType.PayAsYouGo)
 			{
 				return ValidationResult.Success; //Since 1 = Pay As You Go and since we don't care about age for that membership, we assume the age is valid
 			}
