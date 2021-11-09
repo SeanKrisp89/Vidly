@@ -40,12 +40,12 @@ namespace Vidly.ViewModels
 		[Required]
 		public int? NumberInStock { get; set; }
 
-		public MovieFormViewModel()
+		public MovieFormViewModel() //Need to ensure Id is not null via default ctor when creating new movie. See lesson 60.
 		{
 			Id = 0;
 		}
 
-		public MovieFormViewModel(Movie movie)
+		public MovieFormViewModel(Movie movie) //Since we've removed the Movie property from our viewModel, we can no longer just set the Movie property equal to the movie arg we pass in to the new ViewModel object, so we have to instead pass it in as a constructor argument and initialize each property. (see the Edit method)
 		{
 			Id = movie.Id;
 			Name = movie.Name;

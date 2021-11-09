@@ -76,7 +76,7 @@ namespace Vidly.Controllers
 		{
 			if (!ModelState.IsValid)
 			{
-                var viewModel = new MovieFormViewModel
+                var viewModel = new MovieFormViewModel(movie) //we want to return the same movie object back to the view if modelstate is invalid
                 {
                     Genres = _context.Genres.ToList()
                 };
