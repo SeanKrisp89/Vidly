@@ -5,6 +5,7 @@
 }
 
 <h2>Customers</h2>
+@Html.ActionLink("Add Customer", "New", "Customers", null, new { @class = "btn btn-success", @style = "margin-bottom: 1%;" })
 @if (!Model.Any())
 {
 	<p>We currently do not have any customers.</p>

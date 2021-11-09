@@ -42,6 +42,17 @@ namespace Vidly.Controllers
 		[HttpPost] //The SAVE method used to be "Create", but we wanted to use the same action for new customers (Create) and editing existing customers (Update)
 		public ActionResult Save(Customer customer) //Because the model behind our view is of type NewCustomerViewModel, we can use this type here and MVC framework will automatically map request data to this object (we later updated to type of Customer). This is what we call MODEL BINDING. So MVC framework BINDS the viewModel parameter to the request data. - LESSON 41
 		{
+			//THE THREE STEPS OF VALIDATION: 1st - Add data annotations on your entities. 2nd - use ModelState.IsValid to check validity. 3rd - add validation messages to our front-end forms! LS 50
+			if (!ModelState.IsValid)
+			{
+				var viewModel = new CustomerFormViewModel
+				{
+					Customer = customer,
+					MembershipTypes = _context.MembershipTypes.ToList()
+				};
+
+				return View("CustomerForm", viewModel);
+			}
 			if(customer.Id == 0)
 			{
 				//We first need to add the object to our DbContext. Keep in mind that when you add to context, it's not in the Db yet, just in memory.
