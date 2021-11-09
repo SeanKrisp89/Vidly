@@ -40,6 +40,7 @@ namespace Vidly.Controllers
 			return View("CustomerForm", viewModel);
 		}
 
+		[ValidateAntiForgeryToken] //Try going to your edit/new Customer page, inspect the Save button, change the value for the _RequestVerificationToken and see what happens... (LS 56)
 		[HttpPost] //The SAVE method used to be "Create", but we wanted to use the same action for new customers (Create) and editing existing customers (Update)
 		public ActionResult Save(Customer customer) //Because the model behind our view is of type NewCustomerViewModel, we can use this type here and MVC framework will automatically map request data to this object (we later updated to type of Customer). This is what we call MODEL BINDING. So MVC framework BINDS the viewModel parameter to the request data. - LESSON 41
 		{

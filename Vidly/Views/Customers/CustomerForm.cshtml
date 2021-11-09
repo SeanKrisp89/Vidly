@@ -37,8 +37,18 @@
 		</label>
 	</div>
 	@Html.HiddenFor(c => c.Customer.Id)
+	@Html.AntiForgeryToken() @*This method will create a token - which is like a secret code - and then place it as a hidden field in this form and also as a cookie on the user's computer. LS 57*@
 	<button type="submit" class="btn btn-primary">Save</button>
 }
+
+@section scripts 
+{
+	@Scripts.Render("~/bundles/jqueryval") @*LS 56 - So this is how we enable our client-side validation. You can check it by going to this page, going to the network tab in dev tools, hit save, and seeing if you get any network activity (hint - you shouldn't since the roundtrip to the server shouldn't ocurr)*@
+}
+
+@*
+	the jQuery val bundle won't work with our custom validation rules, we would need to write our own jQuery validation for those.
+*@
 
 @*So with labels, it's a tradeoff. If you want to use data annotations in your classes, it will automatically
 	be updated in your forms if/when you change them in your classes/models, but you will have to recompile your code.
