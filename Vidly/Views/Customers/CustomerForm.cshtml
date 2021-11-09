@@ -13,10 +13,16 @@
 	In the disposing method, it will render the closing </form> tag*@
 @using (Html.BeginForm("Save", "Customers"))
 {
+	@Html.ValidationSummary(true, "Please fix the following errors.") @*ValidationSummary() gets us all the validation error messages grouped together assuming you pass no args to it. You can overload it by passing in true/false for exlcluding individual property errors and pass your own message*@
 	<div class="form-group">
 		@Html.LabelFor(c => c.Customer.Name)
 		@Html.TextBoxFor(c => c.Customer.Name, new { @class = "form-control" })
 		@Html.ValidationMessageFor(c => c.Customer.Name)
+	</div>
+	<div class="form-group">
+		@Html.LabelFor(c => c.Customer.MembershipTypeId)
+		@Html.DropDownListFor(c => c.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
+		@Html.ValidationMessageFor(c => c.Customer.MembershipTypeId)
 	</div>
 	<div class="form-group">
 		@*With the "Html.LabelFor" we get the textbox focus even by just clicking on the label. This is because the method include "for='Birthdate'" which is the field Id as well (inspect it!)*@
@@ -24,11 +30,6 @@
 		<label for="Birthdate">Date of Birth</label>
 		@Html.TextBoxFor(c => c.Customer.Birthdate, "{0:d MMM yyyy}", new { @class = "form-control" })
 		@Html.ValidationMessageFor(c => c.Customer.Birthdate)
-	</div>
-	<div class="form-group">
-		@Html.LabelFor(c => c.Customer.MembershipTypeId)
-		@Html.DropDownListFor(c => c.Customer.MembershipTypeId, new SelectList(Model.MembershipTypes, "Id", "Name"), "Select Membership Type", new { @class = "form-control" })
-		@Html.ValidationMessageFor(c => c.Customer.MembershipTypeId)
 	</div>
 	<div class="checkbox">
 		<label>
