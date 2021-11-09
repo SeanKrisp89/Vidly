@@ -59,8 +59,9 @@ namespace Vidly.Controllers
 
         public ActionResult New()
 		{
-            var genres = new MovieFormViewModel //We need to pass in the MovieFormViewModel because we're loading in two types (Movie and Genre) which means at some point we'll need to eager load from Db...
+            var genres = new MovieFormViewModel
             {
+                //Movie was erroring out because the Id wasn't defaulting to 0 (I think it was null). I don't even need to do new Movie{Id = 0} because when you pass 0 args the default constructor will initialize Id to 0 anyway.
                 Genres = _context.Genres.ToList()
             };
 
@@ -70,8 +71,18 @@ namespace Vidly.Controllers
 		}
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Save(Movie movie)
 		{
+			if (!ModelState.IsValid)
+			{
+                var viewModel = new MovieFormViewModel
+                {
+                    Genres = _context.Genres.ToList()
+                };
+
+                return View("MovieForm", viewModel);
+			}
             //determine if new movie or existing movie
             if(movie.Id == 0)
 			{
@@ -105,9 +116,8 @@ namespace Vidly.Controllers
                 return HttpNotFound();
 			}
 
-            var viewModel = new MovieFormViewModel
+            var viewModel = new MovieFormViewModel(movie)
             {
-                Movie = movie, //Simple enough - need to set the movie prop in MovieFormViewModel to your movie object from Db
                 Genres = _context.Genres.ToList() //However here, we wanna grab all possible genre types/names for populating dropdown. Check out comment on LabelFor/DropDownFor in MovieForm.cshtml
             };
 
