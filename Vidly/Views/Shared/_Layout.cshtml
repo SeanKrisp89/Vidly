@@ -20,8 +20,7 @@
 
     @*By default, MVC framework does not have client-side validation enabled. The "jQueryval" bundle in the Bundle.config is not referenced below. But on any page where we need client-side validation, we can reference it at the bottom of the page. LS 56*@
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    @Scripts.Render("~/bundles/lib")
     @RenderSection("scripts", required: false)
 </body>
 </html>
