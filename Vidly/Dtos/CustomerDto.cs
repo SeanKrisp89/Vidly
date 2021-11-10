@@ -21,7 +21,7 @@ namespace Vidly.Dtos
 														   
 		public byte MembershipTypeId { get; set; }
 
-		[Min18YearsIfAMember]
+		//[Min18YearsIfAMember] had to comment this out since we cast to Customer in that class
 		public DateTime? Birthdate { get; set; }
 	}
 }
