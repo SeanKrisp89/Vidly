@@ -13,8 +13,8 @@ using Vidly.Models;
 
 namespace Vidly.Controllers
 {
-    [Authorize]
-    public class AccountController : Controller
+	[Authorize]
+	public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
         private ApplicationUserManager _userManager;
