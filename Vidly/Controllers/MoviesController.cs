@@ -30,14 +30,23 @@ namespace Vidly.Controllers
 		// GET: /movies
 		public ActionResult Index()
 		{
-            //var movies = new List<Movie> //our initial hardcoding of movies prior to Db
-            //{
-            //   new Movie{ Name = "Troy", Id = 1},
-            //   new Movie{ Name = "Star Wars V", Id = 2}
-            //};
+			//var movies = new List<Movie> //our initial hardcoding of movies prior to Db
+			//{
+			//   new Movie{ Name = "Troy", Id = 1},
+			//   new Movie{ Name = "Star Wars V", Id = 2}
+			//};
 
-            //Reminder, since Genre is a type associated with our Movies class, and EF by default only loads Movie, we need to eager load genre with Movie by using "Include" method
-            //var movies = _context.Movies.Include(m => m.Genre).ToList();
+			//Reminder, since Genre is a type associated with our Movies class, and EF by default only loads Movie, we need to eager load genre with Movie by using "Include" method
+			//var movies = _context.Movies.Include(m => m.Genre).ToList();
+
+			if (User.IsInRole(RoleName.CanManageMovies)) //"User" gives us access to the current user
+            {
+                return View("List");
+			}
+			else
+			{
+                return View("ReadOnlyList");
+			}
 
             return View(/*movies*/);
 		}
@@ -57,6 +66,7 @@ namespace Vidly.Controllers
             return View(movie);
         }
 
+        [Authorize(Roles = RoleName.CanManageMovies)]
         public ActionResult New()
 		{
             var genres = new MovieFormViewModel
