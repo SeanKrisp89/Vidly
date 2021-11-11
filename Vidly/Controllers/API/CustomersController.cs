@@ -7,6 +7,7 @@ using System.Web.Http;
 using Vidly.Models;
 using Vidly.Dtos;
 using AutoMapper;
+using System.Data.Entity;
 
 namespace Vidly.Controllers.API
 {//Now remember, these methods will be returning data only! That's the whole point of this section - working with ASP.NET Web API. Building data services to pass to the client and have the client build its own HTML markup
@@ -27,10 +28,14 @@ namespace Vidly.Controllers.API
 		}
 
 		// GET /api/customers
-		public IEnumerable<CustomerDto> GetCustomers() //used to be of type Customer prior to Dto
+		public /*IEnumerable<CustomerDto>*/ IHttpActionResult GetCustomers() //used to be of type Customer prior to Dto
 		{
+			var customerDtos = _context.Customers
+				.Include(c => c.MembershipType)
+				.ToList()
+				.Select(Mapper.Map<Customer, CustomerDto>);
 			//So since we're GETTING a Customer object and returning it, we need the source to be of type Customer, and translate it to CustomerDto as we pass back to the View/Client - LS 68
-			return _context.Customers.ToList().Select(Mapper.Map<Customer, CustomerDto>);
+			return Ok(customerDtos);
 		}
 
 		// GET /api/customers/1

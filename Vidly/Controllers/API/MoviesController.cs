@@ -7,6 +7,7 @@ using System.Web.Http;
 using Vidly.Models;
 using Vidly.Dtos;
 using AutoMapper;
+using System.Data.Entity;
 
 namespace Vidly.Controllers.API
 {
@@ -26,9 +27,14 @@ namespace Vidly.Controllers.API
 		}
 
 		// GET /api/movies
-		public IEnumerable<MovieDto> GetMovies()
+		public /*IEnumerable<MovieDto>*/ IHttpActionResult GetMovies()
 		{
-			return _context.Movies.ToList().Select(Mapper.Map<Movie, MovieDto>); //Something about a delegate here and we're not actually invoking the method. Look it up. LS - 68
+			var movieDtos = _context.Movies
+				.Include(m => m.Genre)
+				.ToList()
+				.Select(Mapper.Map<Movie, MovieDto>); //Something about a delegate here and we're not actually invoking the method. Look it up. LS - 68
+
+			return Ok(movieDtos);
 		}
 
 		// GET /api/movies/1

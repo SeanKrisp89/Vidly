@@ -87,16 +87,16 @@ namespace Vidly.Controllers
 			//};
 
 			//Lesson 30 - we used the include method below for EAGER LOADING of the membership types. This is because our Customer class is associated with the MembershipType class via a Customer property of type Membershiptype. In order to use this method, we had to add the Data.Entity namespace
-			var customers = _context.Customers.Include(c => c.MembershipType).ToList();
+			//var customers = _context.Customers.Include(c => c.MembershipType).ToList(); COMMENTED OUT LINES 90 THROUGH95 DUE TO END OF LS 79. Since our Datatables on the index view is going to send an ajax request to our customers API, we don't need the list of customers from the Db here.
 
-			if(customers == null)
-			{
-				return HttpNotFound();
-			}
+			//if(customers == null)
+			//{
+			//	return HttpNotFound();
+			//}
 
 			//Not passing in/creating a customer viewModel so no need here
 
-			return View(customers);
+			return View(/*customers*/); //commented out customer due to end of LS 79
         }
 
 		//See lesson 30 regarding eager loading. BY DEFAULT ENTITY FRAMEWORK ONLY LOADS THE CUSTOMER OBJECT (or the object passed into the model) AND NOT ITS RELATED OBJECTS/CLASSES

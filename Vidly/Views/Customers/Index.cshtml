@@ -5,45 +5,81 @@
 }
 
 <h2>Customers</h2>
-@Html.ActionLink("Add Customer", "New", "Customers", null, new { @class = "btn btn-success", @style = "margin-bottom: 1%;" })
+@*@Html.ActionLink("Add Customer", "New", "Customers", null, new { @class = "btn btn-success", @style = "margin-bottom: 1%;" })
 @if (!Model.Any())
-{
-	<p>We currently do not have any customers.</p>
-}
+{*@
+	@*<p>We currently do not have any customers.</p>*@
+@*}
 else
 {
-	<table id="customers" class="table table-bordered table-hover">
-		<thead>
-			<tr>
-				<th>Customer</th>
-				<th>Discount Rate</th>
-				<th>Delete</th>
-			</tr>
-		</thead>
-		<tbody>
-			@foreach(var customer in Model)
-				{
-					<tr>
-						<td>@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)</td>
-						<td>@customer.MembershipType.Name</td>
-						<td>
-							<button class="btn btn-link js-delete" data-customer-id="@customer.Id">Delete</button> @*Don't forget you need to add the data-customer-id attribute in order to snag the id and pass it into the url property of the ajax object*@
-						</td>
-					</tr>
-				}
-		</tbody>
-	</table>
-}
+	
+}*@
+
+<table id="customers" class="table table-bordered table-hover">
+	<thead>
+		<tr>
+			<th>Customer</th>
+			<th>Discount Rate</th>
+			<th>Delete</th>
+		</tr>
+	</thead>
+	<tbody>
+		@*@foreach(var customer in Model)
+			{*@
+		<!--<tr>
+			<td>-->
+		@*@Html.ActionLink(customer.Name, "Edit", "Customers", new { id = customer.Id }, null)*@
+		<!--</td>
+		<td>-->
+		@*@customer.MembershipType.Name*@
+		<!--</td>
+		<td>
+			<!--<button class="btn btn-link js-delete" data-customer-id="-->
+		<!--@*@customer.Id*@<!----><!--">Delete</button>-->
+		<!--@*Don't forget you need to add the data-customer-id attribute in order to snag the id and pass it into the url property of the ajax object*@
+			</td>
+		</tr>-->
+		@*}*@
+	</tbody>
+</table>
 
 @section scripts
 
 {
 	<script>
 		$(document).ready(function () {
+			//See lesson 79 for using our API as source of data for this datatable
+			var table = $("#customers").DataTable({   //We were able to generate our nice tables with one line of code originally ($("#customers").DataTable();). But it comes at a cost. With hundreds or thousands of customers, this would be really slow because we're not only supplying the data to datatables, we're supplying the markup too which means it has to parse through it all. It's better to just supply the data and let DT build the markup.
+				ajax: {
+					url: "/api/customers",
+					dataSrc: "" //The reason dataSrc is empty string is because our API returns an ARRAY of CUSTOMER OBJECTS, as opposed to an object showing say, a count of 10, with a PROPERTY that is an ARRAY of CUSTOMER OBJECTS (long story short we're returning an array of customers, so each object is the highest level and therefore our source) - LS 79
+				},
+				//for each column, we supply an object. An in that object we specify various properties of that column
+				columns: [ 
+					{   //we use the data prop to tell DT where to get data for this column
+						data: "name", //DT will look at this prop of the Customer object (name that is) and use that as plan text to render each row, but in our first column, we have a link. So we need to supply a custom rendering function
+						render: function (data, type, customer) { //1st arg - data, is the value of the property in our customer object. 2nd arg - type, is the type of the object. 3rd arg - row, is the actual object or row we're rendering
+							return "<a href='/customers/edit/" + customer.id + "'" + ">" + customer.name + "</a>";
+						}
+					},
+					{
+						data: "membershipType.name"
+					},
+					{
+						data: "id",
+						render: function (data) { //review LS 79
+							return "<button class='btn btn-link js-delete' data-customer-id=" + data + ">Delete</button>";
+						}
+					}
+				]
+			});
+
+			//Above is our datatable display logic, below is our API
+
 			/*The way we're currently handling the click event of our buttons is inefficient. If we have 20 customers, we're going to have a delete button,
 			 * and for each delete button/event, we're going to have a separate handler function in the memory. So what we can do is
 			 * apply a selector to only the customers table, then provide a filter as a second argument to the "on" method */
-			$("#customers").on("click", " .js-delete", function () { //select the table and find all elements within that have js-delete class. Then run this callback func on click event
+			$("#customers").on("click", ".js-delete", function () { //select the table and find all elements within that have js-delete class. Then run this callback func on click event
 				var button = $(this);
 				if (bootbox.confirm("Are you sure you want to delete this customer?", function (result) {
 					if (result) { //if true, make an ajax call
@@ -51,7 +87,8 @@ else
 							url: "/api/customers/" + button.attr("data-customer-id"), //set the url property of the ajax call.
 							method: "DELETE",
 							success: function () { //our callback function for when the call is successful
-								button.parents("tr").remove();
+								table.row(button.parents("tr")).remove().draw();
+								 //the problem with button.parents("tr").remove(); is that we are only removing this from the DOM.
 							}
 						});
 					}

@@ -37,9 +37,9 @@ namespace Vidly.Controllers
             //};
 
             //Reminder, since Genre is a type associated with our Movies class, and EF by default only loads Movie, we need to eager load genre with Movie by using "Include" method
-            var movies = _context.Movies.Include(m => m.Genre).ToList();
+            //var movies = _context.Movies.Include(m => m.Genre).ToList();
 
-            return View(movies);
+            return View(/*movies*/);
 		}
 
         public ActionResult Details(int id)
