@@ -56,13 +56,13 @@ namespace Vidly
 
 			app.UseFacebookAuthentication(
 			   appId: "174729731533913",
-			   appSecret: ""); //MAKE SURE YOU DO NOT POST ID AND SECRET TO GITHUB
+			   appSecret: ""); //MAKE SURE YOU DO NOT POST SECRET TO GITHUB
 
-			//app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
-			//{
-			//	ClientId = "861773329775-94m5g4m4gkl0eog1pejg20s3frk5pts5.apps.googleusercontent.com",
-			//	ClientSecret = ""
-			//         });
+			app.UseGoogleAuthentication(new GoogleOAuth2AuthenticationOptions()
+			{
+				ClientId = "861773329775-94m5g4m4gkl0eog1pejg20s3frk5pts5.apps.googleusercontent.com",
+				ClientSecret = ""
+            });
 		}
 	}
 }
