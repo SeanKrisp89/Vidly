@@ -8,6 +8,7 @@ namespace Vidly.Controllers
 {
 	public class HomeController : Controller
 	{
+		[OutputCache(Duration = 10)] //So this caches the HTML output every x seconds (this does not include data).
 		public ActionResult Index()
 		{
 			return View();
