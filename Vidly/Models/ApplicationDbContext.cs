@@ -15,8 +15,9 @@ namespace Vidly.Models
         public DbSet<Movie> Movies { get; set; } //We added this as part of Exercise 3 (lesson 35)
         public DbSet<MembershipType> MembershipTypes { get; set; }
         public DbSet<Genre> Genres { get; set; }
+		public DbSet<Rental> Rental { get; set; }
 
-        public ApplicationDbContext()
+		public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {
         }
