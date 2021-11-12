@@ -26,6 +26,7 @@ namespace Vidly.Controllers
 			_context.Dispose();
 		}
 
+		[Authorize(Roles = RoleName.CanManageMovies)]
 		public ActionResult New()
 		{
 			//First we need to get a list of MembershipTypes from the Db. THIS REQUIRED THAT WE ADD A DBSET OF TYPE MEMBERSHIPTYPES TO THE IDENTITYMODEL/APPLICATION DBCONTEXT - LESSON 40
@@ -96,7 +97,15 @@ namespace Vidly.Controllers
 
 			//Not passing in/creating a customer viewModel so no need here
 
-			return View(/*customers*/); //commented out customer due to end of LS 79
+			if (User.IsInRole(RoleName.CanManageMovies))
+			{
+				return View(/*customers*/); //commented out customer due to end of LS 79
+			}
+			else
+			{
+				return new HttpUnauthorizedResult();
+			}
+			
         }
 
 		//See lesson 30 regarding eager loading. BY DEFAULT ENTITY FRAMEWORK ONLY LOADS THE CUSTOMER OBJECT (or the object passed into the model) AND NOT ITS RELATED OBJECTS/CLASSES
