@@ -34,7 +34,7 @@ namespace Vidly.Models
 		[Required]
 		public int NumberAvailable { get; set; }
 
-		public static void UpdateAvailability(Rental rental)
+		public void UpdateAvailability(Rental rental)
 		{
 			if(rental.DateReturned == null)
 			{

@@ -43,7 +43,7 @@ namespace Vidly.Controllers.API
 					DateRented = DateTime.Now
 				};
 
-				Movie.UpdateAvailability(rental);
+				movie.UpdateAvailability(rental);
 
 				_context.Rental.Add(rental);
 

@@ -337,6 +337,10 @@
     <Compile Include="Migrations\202111132202337_AddNumberAvailableToMovieClass.Designer.cs">
       <DependentUpon>202111132202337_AddNumberAvailableToMovieClass.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111132207366_InitializeNumAvailWithNumInStock.cs" />
+    <Compile Include="Migrations\202111132207366_InitializeNumAvailWithNumInStock.Designer.cs">
+      <DependentUpon>202111132207366_InitializeNumAvailWithNumInStock.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -711,6 +715,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111132202337_AddNumberAvailableToMovieClass.resx">
       <DependentUpon>202111132202337_AddNumberAvailableToMovieClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111132207366_InitializeNumAvailWithNumInStock.resx">
+      <DependentUpon>202111132207366_InitializeNumAvailWithNumInStock.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>
