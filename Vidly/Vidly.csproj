@@ -313,6 +313,30 @@
     <Compile Include="Migrations\202111122021012_AddedRentalClassToDomain.Designer.cs">
       <DependentUpon>202111122021012_AddedRentalClassToDomain.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202111122033371_RemovedCustomerIdOnlyFromRentalClass.cs" />
+    <Compile Include="Migrations\202111122033371_RemovedCustomerIdOnlyFromRentalClass.Designer.cs">
+      <DependentUpon>202111122033371_RemovedCustomerIdOnlyFromRentalClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111131825104_UpdateRentalIdToIntFromByte.cs" />
+    <Compile Include="Migrations\202111131825104_UpdateRentalIdToIntFromByte.Designer.cs">
+      <DependentUpon>202111131825104_UpdateRentalIdToIntFromByte.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111131845265_RemovedMovieIdPropFromRentalModel.cs" />
+    <Compile Include="Migrations\202111131845265_RemovedMovieIdPropFromRentalModel.Designer.cs">
+      <DependentUpon>202111131845265_RemovedMovieIdPropFromRentalModel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111132129223_RemovedRentalClass.cs" />
+    <Compile Include="Migrations\202111132129223_RemovedRentalClass.Designer.cs">
+      <DependentUpon>202111132129223_RemovedRentalClass.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111132135349_ReAddRentalClassForIdentityColumn.cs" />
+    <Compile Include="Migrations\202111132135349_ReAddRentalClassForIdentityColumn.Designer.cs">
+      <DependentUpon>202111132135349_ReAddRentalClassForIdentityColumn.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202111132202337_AddNumberAvailableToMovieClass.cs" />
+    <Compile Include="Migrations\202111132202337_AddNumberAvailableToMovieClass.Designer.cs">
+      <DependentUpon>202111132202337_AddNumberAvailableToMovieClass.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\ApplicationDbContext.cs" />
@@ -669,6 +693,24 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202111122021012_AddedRentalClassToDomain.resx">
       <DependentUpon>202111122021012_AddedRentalClassToDomain.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111122033371_RemovedCustomerIdOnlyFromRentalClass.resx">
+      <DependentUpon>202111122033371_RemovedCustomerIdOnlyFromRentalClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111131825104_UpdateRentalIdToIntFromByte.resx">
+      <DependentUpon>202111131825104_UpdateRentalIdToIntFromByte.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111131845265_RemovedMovieIdPropFromRentalModel.resx">
+      <DependentUpon>202111131845265_RemovedMovieIdPropFromRentalModel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111132129223_RemovedRentalClass.resx">
+      <DependentUpon>202111132129223_RemovedRentalClass.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111132135349_ReAddRentalClassForIdentityColumn.resx">
+      <DependentUpon>202111132135349_ReAddRentalClassForIdentityColumn.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202111132202337_AddNumberAvailableToMovieClass.resx">
+      <DependentUpon>202111132202337_AddNumberAvailableToMovieClass.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

@@ -30,5 +30,20 @@ namespace Vidly.Models
 		[Range(1, 10)]
 		[Required]
 		public int NumberInStock { get; set; }
+
+		[Required]
+		public int NumberAvailable { get; set; }
+
+		public static void UpdateAvailability(Rental rental)
+		{
+			if(rental.DateReturned == null)
+			{
+				rental.Movie.NumberAvailable -= 1;
+			}
+			else
+			{
+				rental.Movie.NumberAvailable += 1;
+			}
+		}
 	}
 }
