@@ -5,7 +5,7 @@
 
 <h2>New Rental Form</h2>
 <!--See lesson 119 for all this...-->
-<form>
+<form id="newRental">
 	<div class="form-group">
 		<label>
 			Customer
@@ -45,7 +45,7 @@
 			$(document).ready(function () {
 
 				var vm = {
-					movieIds: [] //This is used to store the selected movies that we will then be sending back to the server.
+					moviesIds: [] //This is used to store the selected movies that we will then be sending back to the server.
 				}; //Viewmodel initialized to blank object
 
 				var customers = new Bloodhound({ /*We renamed "bestPictures" to Customers*/
@@ -87,15 +87,31 @@
 					limit: 3,
 					source: movies
 				}).on("typeahead:select", function (e, movie) {
-					$("#movies").append("<li class='list-group-item'>"  + movie.name + "</li>"); //Add the movie to the UL
+					$("#movies").append("<li class='list-group-item'>" + movie.name + "</li>"); //Add the movie to the UL
 
 					//We need to clear the textbox after the selection...
 					$("#movie").typeahead("val", "");//so we get the movie textbox, and need to change its value from whatever it was to blank/empty string. We also want to store this movie in our viewModel so we can send it to the server later. So we added a movieIds [] property to the vm variable above. LS 121
 
-					vm.movieIds.push(movie.id);
+					vm.moviesIds.push(movie.id);
 
 				});
 
-			})
+				$("#newRental").submit(function (e) { //e is short for event here
+					e.preventDefault();//This will prevent the form normally. If we don't do this we'll get a traditional HTML form. Instead, we want to use AJAX (Asynchronous Javascript And XML)
+
+					$.ajax({
+						url: "/api/newrentals",
+						method: "POST",
+						data: vm
+					})
+					.done(function () {
+						console.log("Done");
+					})
+					.fail(function () {
+
+					});
+				});
+
+			});
 		</script>
 	}
