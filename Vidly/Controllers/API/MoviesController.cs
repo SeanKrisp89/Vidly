@@ -29,8 +29,15 @@ namespace Vidly.Controllers.API
 		// GET /api/movies
 		public /*IEnumerable<MovieDto>*/ IHttpActionResult GetMovies(string query = null)
 		{
-			var movieDtos = _context.Movies
-				.Include(m => m.Genre)
+			var moviesQuery = _context.Movies //updated this to moviesQuery for filtering results on New Rental form with Twitter TypeAhead package(see lesson 123)
+				.Include(m => m.Genre);
+
+			if (!string.IsNullOrWhiteSpace(query))
+			{
+				moviesQuery = moviesQuery.Where(m => m.Name.Contains(query));
+			}
+
+			var movieDtos = moviesQuery
 				.ToList()
 				.Select(Mapper.Map<Movie, MovieDto>); //Something about a delegate here and we're not actually invoking the method. Look it up. LS - 68
 

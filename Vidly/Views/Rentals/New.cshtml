@@ -23,9 +23,14 @@
 		</div>
 	</div>
 
-	<ul id="movies" class="list-group">
-
-	</ul>
+	<div class="row">
+		<div class="col-md-4 col-sm-4">
+			<ul id="movies" class="list-group">
+			</ul>
+		</div>
+		
+	</div>
+	
 
 	<button class="btn btn-success">Submit</button>
 
@@ -82,7 +87,7 @@
 					limit: 3,
 					source: movies
 				}).on("typeahead:select", function (e, movie) {
-					$("#movies").append("<li>", movie.name, "</li>"); //Add the movie to the UL
+					$("#movies").append("<li class='list-group-item'>"  + movie.name + "</li>"); //Add the movie to the UL
 
 					//We need to clear the textbox after the selection...
 					$("#movie").typeahead("val", "");//so we get the movie textbox, and need to change its value from whatever it was to blank/empty string. We also want to store this movie in our viewModel so we can send it to the server later. So we added a movieIds [] property to the vm variable above. LS 121

@@ -28,10 +28,20 @@ namespace Vidly.Controllers.API
 		}
 
 		// GET /api/customers
-		public /*IEnumerable<CustomerDto>*/ IHttpActionResult GetCustomers(string query = null) //used to be of type Customer prior to Dto. Also (LS120) we added the parameter "query = null" for Twitter.TypeAhead plugin. It passes a query string to the endpoint.
+		public /*IEnumerable<CustomerDto>*/ IHttpActionResult GetCustomers(string query = null) //used to be of type Customer prior to Dto. Also (LS123) we added the parameter "query = null" for Twitter.TypeAhead plugin. It passes a query string to the endpoint.
 		{
-			var customerDtos = _context.Customers
-				.Include(c => c.MembershipType)
+			//Get all customers and their mem types but do NOT execute the query (originally we had .ToList() appended to this which executes the query (LS 123))
+			var customersQuery = _context.Customers
+				.Include(c => c.MembershipType);
+
+			//apply the filter for the Twitter TypeAhead text box on form
+			if (!String.IsNullOrWhiteSpace(query))
+			{
+				//So basically we're modifying the query so that it returns only the customer names from the original query that match the typed in name
+				customersQuery = customersQuery.Where(c => c.Name.Contains(query));
+			}
+
+			var customerDtos = customersQuery
 				.ToList()
 				.Select(Mapper.Map<Customer, CustomerDto>);
 			//So since we're GETTING a Customer object and returning it, we need the source to be of type Customer, and translate it to CustomerDto as we pass back to the View/Client - LS 68
