@@ -27,7 +27,7 @@ namespace Vidly.Controllers.API
 		}
 
 		// GET /api/movies
-		public /*IEnumerable<MovieDto>*/ IHttpActionResult GetMovies()
+		public /*IEnumerable<MovieDto>*/ IHttpActionResult GetMovies(string query = null)
 		{
 			var movieDtos = _context.Movies
 				.Include(m => m.Genre)

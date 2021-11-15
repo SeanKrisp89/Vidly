@@ -7,7 +7,7 @@ namespace Vidly.Migrations
     {
         public override void Up()
         {
-            Sql("UPDATE Movies SET NumberAvailable = NumberInStock");
+            Sql("UPDATE Movies SET NumberAvailable = NumberInStock"); //Initialization here.
         }
         
         public override void Down()

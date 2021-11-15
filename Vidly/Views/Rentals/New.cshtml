@@ -1,0 +1,96 @@
+﻿@model Vidly.ViewModels.CustomerFormViewModel
+@{
+    ViewBag.Title = "New Rental Form";
+}
+
+<h2>New Rental Form</h2>
+<!--See lesson 119 for all this...-->
+<form>
+	<div class="form-group">
+		<label>
+			Customer
+		</label>
+		<div class="tt-container">
+			<input id="customer" type="text" value="" class="form-control" />
+		</div>
+	</div>
+	<div class="form-group">
+		<label>
+			Movie
+		</label>
+		<div class="tt-container">
+			<input id="movie" "type="text" value="" class="form-control" />
+		</div>
+	</div>
+
+	<ul id="movies" class="list-group">
+
+	</ul>
+
+	<button class="btn btn-success">Submit</button>
+
+</form>
+
+@*Below is from lesson 120... Our Twitter.typeahead referenced code*@
+
+@section scripts
+	
+	{
+		<script>
+			$(document).ready(function () {
+
+				var vm = {
+					movieIds: [] //This is used to store the selected movies that we will then be sending back to the server.
+				}; //Viewmodel initialized to blank object
+
+				var customers = new Bloodhound({ /*We renamed "bestPictures" to Customers*/
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'), //Bloodhound is the suggestion engine behind typeahead, so it encapsulates all the business logic for suggestions.
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					remote: {
+						url: '/api/customers?query=%QUERY', //We added this query string to the endpoint... (LS 120)
+						wildcard: '%QUERY'
+					}
+				});
+
+				$('#customer').typeahead({
+					minLength: 3,
+					highLight: true
+				}, {
+					name: 'customers',
+					display: 'name',
+					limit: 3,
+					source: customers
+				}).on("typeahead:select", function (e, customer) {
+					vm.customerId = customer.id;
+				});
+
+				var movies = new Bloodhound({ /*We renamed "bestPictures" to movies*/
+					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'), //Bloodhound is the suggestion engine behind typeahead, so it encapsulates all the business logic for suggestions.
+					queryTokenizer: Bloodhound.tokenizers.whitespace,
+					remote: {
+						url: '/api/movies?query=%QUERY', //We added this query string to the endpoint... (LS 120)
+						wildcard: '%QUERY'
+					}
+				});
+
+				$('#movie').typeahead({
+					minLength: 3,
+					highLight: true
+				}, {
+					name: 'movie',
+					display: 'name',
+					limit: 3,
+					source: movies
+				}).on("typeahead:select", function (e, movie) {
+					$("#movies").append("<li>", movie.name, "</li>"); //Add the movie to the UL
+
+					//We need to clear the textbox after the selection...
+					$("#movie").typeahead("val", "");//so we get the movie textbox, and need to change its value from whatever it was to blank/empty string. We also want to store this movie in our viewModel so we can send it to the server later. So we added a movieIds [] property to the vm variable above. LS 121
+
+					vm.movieIds.push(movie.id);
+
+				});
+
+			})
+		</script>
+	}

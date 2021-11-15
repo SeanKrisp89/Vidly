@@ -28,7 +28,7 @@ namespace Vidly.Controllers.API
 		}
 
 		// GET /api/customers
-		public /*IEnumerable<CustomerDto>*/ IHttpActionResult GetCustomers() //used to be of type Customer prior to Dto
+		public /*IEnumerable<CustomerDto>*/ IHttpActionResult GetCustomers(string query = null) //used to be of type Customer prior to Dto. Also (LS120) we added the parameter "query = null" for Twitter.TypeAhead plugin. It passes a query string to the endpoint.
 		{
 			var customerDtos = _context.Customers
 				.Include(c => c.MembershipType)
