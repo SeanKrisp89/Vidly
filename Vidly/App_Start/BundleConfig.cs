@@ -5,6 +5,7 @@ namespace Vidly
 {
 	public class BundleConfig
 	{
+		//NOTE: the "tilde" ~ represents the root of the site
 		// For more information on bundling, visit https://go.microsoft.com/fwlink/?LinkId=301862
 		public static void RegisterBundles(BundleCollection bundles)
 		{
