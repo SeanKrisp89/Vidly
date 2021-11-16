@@ -11,7 +11,7 @@
 			Customer
 		</label>
 		<div class="tt-container">
-			<input id="customer" type="text" value="" class="form-control" />
+			<input id="customer" name="customer" data-rule-validCustomer="true" required type="text" value="" class="form-control" /> <!--We added the"data-rule-validCustomer='true'" here for the custom validation in our $.validator.addMethod() code"-->
 		</div>
 	</div>
 	<div class="form-group">
@@ -19,7 +19,7 @@
 			Movie
 		</label>
 		<div class="tt-container">
-			<input id="movie" "type="text" value="" class="form-control" />
+			<input id="movie" name="movie" type="text" value="" class="form-control" />
 		</div>
 	</div>
 
@@ -41,77 +41,89 @@
 @section scripts
 	
 	{
-		<script>
-			$(document).ready(function () {
+		@Scripts.Render("~/bundles/jqueryval");
+<script>
+	$(document).ready(function () {
 
-				var vm = {
-					moviesIds: [] //This is used to store the selected movies that we will then be sending back to the server.
-				}; //Viewmodel initialized to blank object
+		var vm = {
+			moviesIds: []
+		};
 
-				var customers = new Bloodhound({ /*We renamed "bestPictures" to Customers*/
-					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'), //Bloodhound is the suggestion engine behind typeahead, so it encapsulates all the business logic for suggestions.
-					queryTokenizer: Bloodhound.tokenizers.whitespace,
-					remote: {
-						url: '/api/customers?query=%QUERY', //We added this query string to the endpoint... (LS 120)
-						wildcard: '%QUERY'
-					}
-				});
+		var customers = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			remote: {
+				url: '/api/customers?query=%QUERY',
+				wildcard: '%QUERY'
+			}
+		});
 
-				$('#customer').typeahead({
-					minLength: 3,
-					highLight: true
-				}, {
-					name: 'customers',
-					display: 'name',
-					limit: 3,
-					source: customers
-				}).on("typeahead:select", function (e, customer) {
-					vm.customerId = customer.id;
-				});
+		$('#customer').typeahead({
+			minLength: 3,
+			highlight: true
+		}, {
+			name: 'customers',
+			display: 'name',
+			source: customers
+		}).on("typeahead:select", function (e, customer) {
+			vm.customerId = customer.id;
+		});
 
-				var movies = new Bloodhound({ /*We renamed "bestPictures" to movies*/
-					datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'), //Bloodhound is the suggestion engine behind typeahead, so it encapsulates all the business logic for suggestions.
-					queryTokenizer: Bloodhound.tokenizers.whitespace,
-					remote: {
-						url: '/api/movies?query=%QUERY', //We added this query string to the endpoint... (LS 120)
-						wildcard: '%QUERY'
-					}
-				});
+		var movies = new Bloodhound({
+			datumTokenizer: Bloodhound.tokenizers.obj.whitespace('name'),
+			queryTokenizer: Bloodhound.tokenizers.whitespace,
+			remote: {
+				url: '/api/movies?query=%QUERY',
+				wildcard: '%QUERY'
+			}
+		});
 
-				$('#movie').typeahead({
-					minLength: 3,
-					highLight: true
-				}, {
-					name: 'movie',
-					display: 'name',
-					limit: 3,
-					source: movies
-				}).on("typeahead:select", function (e, movie) {
-					$("#movies").append("<li class='list-group-item'>" + movie.name + "</li>"); //Add the movie to the UL
+		$('#movie').typeahead({
+			minLength: 3,
+			highlight: true
+		}, {
+			name: 'movies',
+			display: 'name',
+			source: movies
+		}).on("typeahead:select", function (e, movie) {
+			$("#movies").append("<li class='list-group-item'>" + movie.name + "</li>");
+			$("#movie").typeahead("val", "");
+			vm.moviesIds.push(movie.id);
+		});
 
-					//We need to clear the textbox after the selection...
-					$("#movie").typeahead("val", "");//so we get the movie textbox, and need to change its value from whatever it was to blank/empty string. We also want to store this movie in our viewModel so we can send it to the server later. So we added a movieIds [] property to the vm variable above. LS 121
+		$.validator.addMethod("validCustomer", function () {
+			return vm.customerId && vm.customerId !== 0;
+		}, "Please select a valid customer.");
 
-					vm.moviesIds.push(movie.id);
+		$.validator.addMethod("atLeastOneMovie", function () {
+			return vm.moviesIds.length > 0;
+		}, "Please select at least one movie.");
 
-				});
-
-				$("#newRental").submit(function (e) { //e is short for event here
-					e.preventDefault();//This will prevent the form normally. If we don't do this we'll get a traditional HTML form. Instead, we want to use AJAX (Asynchronous Javascript And XML)
-
-					$.ajax({
-						url: "/api/newrentals",
-						method: "POST",
-						data: vm
-					})
+		var validator = $("#newRental").validate({
+			submitHandler: function () {
+				$.ajax({
+					url: "/api/newRentals",
+					method: "post",
+					data: vm
+				})
 					.done(function () {
-						console.log("Done");
+
+						toastr.success("Rentals successfully recorded.");
+
+						$("#customer").typeahead("val", "");
+						$("#movie").typeahead("val", "");
+						$("#movies").empty();
+
+						vm = { moviesIds: [] };
+
+						validator.resetForm();
 					})
 					.fail(function () {
-
+						toastr.error("Something unexpected happened.");
 					});
-				});
-
-			});
-		</script>
+				return false;
+			}
+		});
+	});
+</script>
 	}
