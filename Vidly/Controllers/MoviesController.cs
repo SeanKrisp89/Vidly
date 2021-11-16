@@ -48,7 +48,7 @@ namespace Vidly.Controllers
                 return View("ReadOnlyList");
 			}
 
-            return View(/*movies*/);
+            //return View(/*movies*/);
 		}
 
         public ActionResult Details(int id)
